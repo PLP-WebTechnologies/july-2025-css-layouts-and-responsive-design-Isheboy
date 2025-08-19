@@ -1,0 +1,465 @@
+/* Simple Responsive Layout with CSS Grid and Flexbox */
+
+/* Reset and basic styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth; /* Smooth scrolling for navigation links */
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* Header with Flexbox Navigation */
+.header {
+  background: #2c3e50;
+  color: white;
+  padding: 1rem 2rem;
+  /* FLEXBOX: Header layout */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* POSITIONING: Sticky header for better UX */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+  font-size: 1.5rem;
+}
+
+.header nav {
+  /* FLEXBOX: Navigation links */
+  display: flex;
+  gap: 2rem;
+}
+
+.header nav a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.header nav a:hover {
+  color: #3498db;
+}
+
+/* Main Container with CSS Grid */
+.container {
+  /* CSS GRID: Main layout structure */
+  display: grid;
+  grid-template-columns: 1fr 250px;
+  grid-template-areas:
+    "hero hero"
+    "services services"
+    "content sidebar";
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Hero Section */
+.hero {
+  grid-area: hero;
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: white;
+  padding: 4rem 2rem;
+  text-align: center;
+  border-radius: 8px;
+  /* POSITIONING: Relative for absolute positioned elements */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hero decorative element using absolute positioning */
+.hero::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transform: rotate(45deg);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) rotate(45deg);
+  }
+}
+
+.hero h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  /* POSITIONING: Relative to ensure text appears above decorative elements */
+  position: relative;
+  z-index: 2;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  /* POSITIONING: Relative to ensure text appears above decorative elements */
+  position: relative;
+  z-index: 2;
+}
+
+.hero button {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+  /* POSITIONING: Relative to ensure button appears above decorative elements */
+  position: relative;
+  z-index: 2;
+}
+
+.hero button:hover {
+  background: #c0392b;
+  transform: translateY(-2px);
+}
+
+/* Services Section with Flexbox */
+.services {
+  grid-area: services;
+}
+
+.services h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #2c3e50;
+}
+
+/* FLEXBOX: Service cards layout */
+.service-cards {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  flex: 1;
+  min-width: 250px;
+  max-width: 300px;
+  /* POSITIONING: Relative for hover effects and potential child absolute elements */
+  position: relative;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Card number indicator using absolute positioning */
+.card::before {
+  content: "";
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 30px;
+  height: 30px;
+  background: #3498db;
+  border-radius: 50%;
+  opacity: 0.1;
+}
+
+.card:nth-child(1)::before {
+  background: #e74c3c;
+}
+.card:nth-child(2)::before {
+  background: #2ecc71;
+}
+.card:nth-child(3)::before {
+  background: #f39c12;
+}
+
+.card h3 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.card p {
+  color: #666;
+}
+
+/* Content Area */
+.content {
+  grid-area: content;
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.content h2 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.content p {
+  color: #666;
+  line-height: 1.8;
+}
+
+/* Sidebar */
+.sidebar {
+  grid-area: sidebar;
+  background: #ecf0f1;
+  padding: 2rem;
+  border-radius: 8px;
+  /* POSITIONING: Relative for potential sticky behavior or child absolute elements */
+  position: relative;
+}
+
+/* Sidebar decorative border using absolute positioning */
+.sidebar::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(to bottom, #3498db, #2980b9);
+  border-radius: 0 0 0 8px;
+}
+
+.sidebar h3 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.sidebar ul {
+  list-style: none;
+}
+
+.sidebar ul li {
+  margin-bottom: 0.5rem;
+}
+
+.sidebar ul li a {
+  color: #3498db;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.sidebar ul li a:hover {
+  color: #2980b9;
+}
+
+/* Footer */
+.footer {
+  background: #2c3e50;
+  color: white;
+  text-align: center;
+  padding: 2rem;
+  margin-top: 2rem;
+}
+
+/* Contact Section */
+.contact {
+  background: #f8f9fa;
+  padding: 3rem 2rem;
+  text-align: center;
+  /* POSITIONING: Relative for child absolute elements */
+  position: relative;
+}
+
+/* Contact background decoration using absolute positioning */
+.contact::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(to right, #3498db, #2ecc71, #e74c3c);
+}
+
+.contact-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.contact h2 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  font-size: 2.5rem;
+}
+
+.contact p {
+  color: #666;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
+
+.contact-info {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.contact-info p {
+  background: white;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin: 0;
+  /* POSITIONING: Relative for hover effects */
+  position: relative;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.contact-info p:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive Design - Media Queries */
+
+/* Tablet View (768px and below) */
+@media (max-width: 768px) {
+  /* Stack header items vertically */
+  .header {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .header nav {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  /* Adjust grid layout for tablet */
+  .container {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "hero"
+      "services"
+      "content"
+      "sidebar";
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  /* Stack service cards vertically */
+  .service-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    max-width: 100%;
+  }
+
+  /* Reduce hero text size */
+  .hero h2 {
+    font-size: 2rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+}
+
+/* Mobile View (480px and below) */
+@media (max-width: 480px) {
+  /* Further reduce padding and spacing */
+  .container {
+    padding: 0.5rem;
+  }
+
+  .hero {
+    padding: 2rem 1rem;
+  }
+
+  .hero h2 {
+    font-size: 1.8rem;
+  }
+
+  .content,
+  .sidebar {
+    padding: 1rem;
+  }
+
+  .header {
+    padding: 1rem;
+  }
+
+  .header nav {
+    gap: 0.5rem;
+  }
+
+  /* Stack contact info vertically on mobile */
+  .contact-info {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .contact-info p {
+    max-width: 300px;
+  }
+}
+
+/* Back to Top Button - Fixed Positioning Demo */
+.back-to-top {
+  /* POSITIONING: Fixed positioning for always visible element */
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: #3498db;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+  transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+  z-index: 1000;
+}
+
+.back-to-top:hover {
+  background: #2980b9;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+}
+
+.back-to-top:active {
+  transform: translateY(-1px);
+}
